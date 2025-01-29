@@ -1,3 +1,5 @@
+//my awesome tamale
+
 function setup() 
 {
     createCanvas(600, 600);
