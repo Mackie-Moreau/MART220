@@ -1,8 +1,10 @@
 //enemies 
-var badW;
-var badH;
-var badX;
-var badY;
+var badWs = [];
+var badHs = [];
+var badXs = [];
+var badYs = [];
+
+var badCount = 3;
 
 var speedX = 2;
 var speedY = 2;
@@ -19,10 +21,16 @@ var D = 68;
 function setup() 
 {
     createCanvas(600, 600);
-    badW = floor(random() * 100) + 1;
-    badH = floor(random() * 100) + 1;
-    badX = floor(random() * width) + 1;
-    badY = floor(random() * height) + 1;
+
+    for(var i = 0; i < badCount; i++)
+    {
+        badWs [i] = floor(random() * 100) + 1;
+        badHs [i] = floor(random() * 100) + 1;
+        badXs [i] = floor(random() * width) + 1;
+        badYs [i] = floor(random() * height) + 1;
+    }
+
+    setInterval = (moveEnemies, 1000);
 }
 
 function draw() 
@@ -53,15 +61,15 @@ function movePlayer()
     {
         charaY -= 3
     }
-    else if (keyIsDown(S)) 
+    if (keyIsDown(S)) 
     {
         charaY += 3
     }
-    else if (keyIsDown(A)) 
+    if (keyIsDown(A)) 
     {
         charaX -= 3
     }
-    else if (keyIsDown(D)) 
+    if (keyIsDown(D)) 
     {
         charaX += 3
     }
@@ -72,32 +80,52 @@ function movePlayer()
 function createBads() 
 {
     fill(240, 22, 67);
-    rect(badX, badY, badW, badH);
+    for(var i = 0; i <badCount; i++)
+    {
+    rect(badXs[i], badYs[i], badWs[i], badHs[i]);
+    }
 }
 
 function portalWalls()
 {
     if(charaX >= width)
     {
-        charaX == 100;
+        charaX = 0;
     }
+    if(charaY >= height)
+    {
+        charaY = 0;
+    }
+    if(charaX < 0)
+    {
+        charaX = width;
+    }
+    if(charaY < 0)
+    {
+        charaY = height;
+    }
+    
 }
 
 //move enemies
 function moveEnemies()
 {
-    badX = badX + speedX;
 
-    if(badX+badW >= width || badX <= 0)
+    for(var i = 0; i <badCount; i++)
     {
-        speedX *=-1;
-    }
+        badXs[i] = badXs[i] + speedX;
 
-    badY = badY + speedY; 
+        if(badXs[i]+badWs[i] >= width || badXs[i] <= 0)
+        {
+            speedX *=-1;
+        }
 
-    if(badY <=0 || badY+badH >= height)
-    {
-        speedY *=-1
-    }
+        badYs[i] = badYs[i] + speedY; 
+
+        if(badYs[i] <=0 || badYs[i]+badHs[i] >= height)
+        {
+            speedY *=-1
+        }
+    }   
 
 }

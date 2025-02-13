@@ -28,6 +28,22 @@ var myBG;
 //timer stuff
 var forkInterval;
 
+//animation
+var animation = [];
+var i = 0; 
+var myCharacter;
+
+function preload()
+{
+     
+    for(var i = 0; i < 10; i++)
+    {
+        myCharacter = new Character('Assets/Images/Idle Animation/Idle ('+ i+ ').png');
+        animation.push(myCharacter);
+    }
+
+}
+
 
 function setup() 
 {
@@ -38,22 +54,24 @@ function setup()
     //assets
     myFont = loadFont("Assets/Fonts/Caveat-VariableFont_wght.ttf");
     myBG = loadImage("Assets/Images/sky.jpg");
-    myTable = loadImage("Assets/Images/cat.jpg");
+    myTable = loadImage("Assets/Images/table.jpg");
     chatgptFork = loadImage("Assets/Images/fork_clipart.jpg");
 
     forkInterval = setInterval(moveFork, 1000);
+
+    setInterval(animationInterval, 50);
     
 }
 
 function draw() 
 {
-  background(120);
+  background(myBG, 600, 600);
 
-  image(myTable, 0, 400);
+  image(myTable, 0, 400, 600, 300);
 
   image(chatgptFork, forkX, forkY, 100, 100);
 
-  /*createPlate();
+  createPlate();
 
   createTamale();
 
@@ -62,7 +80,10 @@ function draw()
   movePlate();
 
   finishTamale();
- */
+
+  animation [i].draw();
+ 
+ 
 }
 
 function mouseClicked()
@@ -176,3 +197,13 @@ function mouseClicked()
     }
    
  }
+
+ function animationInterval()
+{
+    i++;
+    if(i > 9)
+    {
+        i = 0;
+    }
+    
+}
