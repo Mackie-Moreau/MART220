@@ -24,7 +24,7 @@ class Character
           this.y < y2 + h2 &&
           this.y + this.imageHeight > y2
         );
-      }
+    }
 
 }
 

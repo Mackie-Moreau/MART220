@@ -59,7 +59,6 @@ function setup()
     myTable = loadImage("Assets/Images/table.jpg");
 
     //peppers
-    //pepperRandom();
     
 
     for (let i = 0; i < 3; i++) {
@@ -88,27 +87,18 @@ function draw()
 
   movePlate();
   
-  myPeppers.draw(); 
-
-  for (let i = 0; i < 3; i++) 
-    {
-        pepperArray[i].draw();
-    }
-
+ // myPeppers.draw(); 
 
   animation [i].draw();
  
   movePlayer();
 
-  for (let k = 0; k < pepperArray.length; k++) 
+  
+  for (let i = 0; i < pepperArray.length; i++) 
     {
-        if (animation[i].hasCollided(pepperArray[k].x2, pepperArray[k].y2, 50, 50)) 
-        {
-            pepperArray.splice(k, 1); 
-        }
-       
-        
+        pepperArray [i].draw();
     }
+
 }
 
 function mouseClicked()
@@ -234,6 +224,19 @@ function movePlayer()
             x += 3
         }
 
+        for(let i = 0; i < animation.length; i++)
+            {
+                animation[i].x = x;
+                animation[i].y = y;
+            }
 
+        for (let k = 0; k < pepperArray.length; k++) 
+            {
+                if (animation[i].hasCollided(pepperArray[k].x2, pepperArray[k].y2, 50, 50)) 
+                {
+                    pepperArray.splice(k, 1); 
+                }
+                
+            }
 
 }
