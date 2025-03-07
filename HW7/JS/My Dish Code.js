@@ -27,14 +27,17 @@ var flipX = false;
 
 //Countdown and Score
 var score = 0;
-var countdownTimer = 15;
+var countdownTimer = 30;
 
+//sound stuff
+var mySound;
 
 function preload()
 {
 
     idleStrings = loadStrings("../Data/Idle.txt");
     runStrings = loadStrings("../Data/Run.txt");
+    mySound = loadSound("Assets/Sounds/BITB Youve Changed.mp3");
 
 }
 
@@ -55,7 +58,6 @@ function setup()
             runAnimation.push(myCharacter);
         }
 
-
   
     //assets
     myFont = loadFont("Assets/Fonts/Jersey10-Regular.ttf");
@@ -64,15 +66,23 @@ function setup()
     
 
     for (let i = 0; i < 5; i++) {
-        myPeppers = new Food(this.x2 = floor(random() * width) + 1, this.y2 = floor(random() * 475) + 1);
+        myPeppers = new Food(this.x2 = floor(random() * width) + 1, this.y2 = floor(random() * 475) + 1, 255, 112, 51);
+        pepperArray.push(myPeppers);
+        myPeppers = new Food(this.x2 = floor(random() * width) + 1, this.y2 = floor(random() * 475) + 1, 176, 201, 75);
         pepperArray.push(myPeppers);
     }
+
     
 
     setInterval(animationInterval, 50);
     setInterval(countdownInterval, 1000);
     setInterval(pepperInterval, 1000);
     
+}
+
+function mousePressed() 
+{
+     mySound.play();
 }
 
 function draw() 
@@ -93,13 +103,16 @@ function draw()
 
   pepperMove();
 
-    if(score == 5)
+  //soundPlay();
+
+    if(score == 3)
          {
             textSize(35);
             fill(14, 148, 63);
             text("You Win!", 225, 300);
             clearInterval(countdownInterval);
         }
+
 }
 
 
@@ -142,7 +155,6 @@ function countdownInterval()
   triangle(366, 387, 503, 337, 391, 463);
   triangle(391, 463, 503, 337, 508, 418);
 
-
   //fillings
   fill(54, 176, 116);
   text('~~~~~~~~~~', 202, 412);
@@ -163,9 +175,9 @@ function countdownInterval()
  textFont(myFont); 
  text('SALSA MAKER', 25, 550);
  text('Score:' +  score, 25, 45);
- //text('00:00', 500, 45);
  textSize(22);
  text('move the character using WASD to collect the peppers for the salsa', 25, 575);
+ text('avoid the moldy peppers and do not move when they are moving', 25, 590);
  }
    
 
@@ -215,23 +227,31 @@ function movePlayer()
             }
 
         for(let i = 0; i < idleAnimation.length; i++)
-        {
-            idleAnimation[i].flipX = flipX;
-            idleAnimation[i].x = x;
-            idleAnimation[i].y = y;      
-        }
+            {
+                idleAnimation[i].flipX = flipX;
+                idleAnimation[i].x = x;
+                idleAnimation[i].y = y;      
+            }
 
         
 
         for (let k = 0; k < pepperArray.length; k++) 
         {
-            if (runAnimation[i].hasCollided(pepperArray[k].x2, pepperArray[k].y2, 50, 50)) 
+            //if (runAnimation[i].hasCollided(pepperArray[k].x2, pepperArray[k].y2, 50, 50)) 
+            if(collideRectRect(runAnimation[i].x, runAnimation[i].y, runAnimation[i].imageWidth, runAnimation[i].imageHeight, pepperArray[k].x2, pepperArray[k].y2, 50, 50))
             {
-                pepperArray.splice(k, 1); 
-                score++;
-            }
-                
+                if(pepperArray[k].r ==255)
+                    {
+                        score++;
+                    }
+                    else
+                    {
+                        score--;
+                    }
+                pepperArray.splice(k, 1);
+            }   
         }
+
     }
     else
     {
@@ -265,12 +285,13 @@ function pepperMove()
                  pepperArray [i].x2 = random(100, width-100);
                  pepperArray [i].y2 = random(100, height-100);
             }
-
+    
     }
     if (pepperTimer == 0)
     {
         pepperTimer = 3;
     }
+   
 }
 
 function pepperDisplay()
