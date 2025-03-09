@@ -30,17 +30,20 @@ var score = 0;
 var countdownTimer = 30;
 
 //sound stuff
-var mySound;
+var bgMusic;
+var badSound;
+var goodSound;
 
 function preload()
 {
 
     idleStrings = loadStrings("../Data/Idle.txt");
     runStrings = loadStrings("../Data/Run.txt");
-    mySound = loadSound("Assets/Sounds/BITB Youve Changed.mp3");
+    bgMusic = loadSound("Assets/Sounds/BITB Youve Changed.mp3");
+    badSound = loadSound("Assets/Sounds/bad sound.mp3");
+    goodSound = loadSound("Assets/Sounds/good sound.wav");
 
 }
-
 
 function setup() 
 {
@@ -77,13 +80,12 @@ function setup()
     setInterval(animationInterval, 50);
     setInterval(countdownInterval, 1000);
     setInterval(pepperInterval, 1000);
+
+
+    bgSound();
     
 }
 
-function mousePressed() 
-{
-     mySound.play();
-}
 
 function draw() 
 {
@@ -243,10 +245,14 @@ function movePlayer()
                 if(pepperArray[k].r ==255)
                     {
                         score++;
+                        goodSound.setVolume(0.09);
+                        goodSound.play();
                     }
                     else
                     {
                         score--;
+                        badSound.setVolume(0.09);
+                        badSound.play();
                     }
                 pepperArray.splice(k, 1);
             }   
@@ -311,3 +317,10 @@ function pepperInterval()
     
 }
 
+function bgSound()
+{
+    bgMusic.play();
+    bgMusic.loop();
+    bgMusic.setVolume(0.5);
+    userStartAudio();
+}
