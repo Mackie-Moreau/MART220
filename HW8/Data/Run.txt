@@ -1,0 +1,8 @@
+Assets/Images/Run Animation/Run (0).png
+Assets/Images/Run Animation/Run (1).png
+Assets/Images/Run Animation/Run (2).png
+Assets/Images/Run Animation/Run (3).png
+Assets/Images/Run Animation/Run (4).png
+Assets/Images/Run Animation/Run (5).png
+Assets/Images/Run Animation/Run (6).png
+Assets/Images/Run Animation/Run (7).png
