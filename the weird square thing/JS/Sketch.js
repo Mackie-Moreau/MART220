@@ -12,12 +12,7 @@ var goodSound;
 
 //Character Related 
 var cowpokeIdle =[];
-var cowpokeRun =[];
 var myAnimation;
-var runAnimation;
-
-//Obstacles and Collection
-var evilCube;
 
 
 //Preload
@@ -30,7 +25,6 @@ function preload()
 
     //Character Related
     cowpokeIdle = loadStrings("Data/Idle.txt");
-    cowpokeRun = loadStrings("Data/Run.txt");
 }
 
 //Setup
@@ -49,10 +43,9 @@ function setup()
     bgSound();
 
     //Character Related
-    myAnimation = new Character(100, 100, 100, 100);
-    myAnimation.loadAnimation('Idle Animation', cowpokeIdle);
-    myAnimation.loadAnimation('Idle Animation', cowpokeRun);
-    evilCube = square(200, 200, 50);
+    myAnimation = new Character(cowpokeIdle, 100, 100, 100, 100);
+    
+    
 
 }
 
@@ -67,28 +60,10 @@ function draw()
     scoreboard();
 
     //Character Related
-    if(kb.pressing('d'))
-        {
-            myAnimation.updatePosition('forward');
-            myAnimation.drawAnimation('Run Animation');    
-            if(myAnimation.isColliding(evilCube))
-            {
-                myAnimation.drawAnimation('Idle Animation');
-                myAnimation.updatePosition('Idle Animation');
-                
-            }     
-        }
-        else if(kb.pressing('a'))
-        {
-            myAnimation.updatePosition('reverse');
-            myAnimation.drawAnimation('Run Animation');        
-        }
-        else
-        {
-            myAnimation.drawAnimation('Idle Animation');
-        } 
-    
-   
+    myAnimation.updatePosition('Idle');
+    myAnimation.setCurrentFrameCount(frameCount);
+    myAnimation.drawAnimation();
+    myAnimation.createAnimation();
 }
 
 //Countdown and Score

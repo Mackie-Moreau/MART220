@@ -1,60 +1,55 @@
-class Character
-{
-constructor(x, y, w, h)
-{
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.currentAnimation;
-    this.createAnimation();
-    this.i = 0;
-    this.direction  = "";
-}
+class animationImage {
 
-getX()
-    {
+    constructor(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.currentAnimation;
+        this.createAnimation();
+        this.direction = "";
+    }
+
+    getX() {
         return this.x;
     }
 
-setX(x)
-    {
+    setX(x) {
         this.x = x;
     }
 
-    setCurrentFrameCount(currentFrameCount)
-    {
-        this.currentFrameCount= currentFrameCount    
+    setCurrentFrameCount(currentFrameCount) {
+
+        this.currentFrameCount = currentFrameCount;
     }
 
-    createAnimation()
-    {
+    createAnimation() {
         this.currentAnimation = createSprite(this.x, this.y);
     }
 
+    loadAnimation(animationType, fileNames) {
 
-loadAnimation(animationType, path)
-    {
-         this.currentAnimation = loadAnimation(animationType, path[0], path[path.length-1]);
-        // this.currentAnimation.w = 100;
-         //this.currentAnimation.h = 100   
+
+        this.currentAnimation.addAnimation(animationType, fileNames[0], fileNames[fileNames.length - 1]);
+        // set the hit box
+        this.currentAnimation.width = 300;
+        this.currentAnimation.height = 150;
+
     }
 
 
-
-
-  drawAnimation(animationType)
-    {  
-        this.currentAnimation.frameDelay = 5; 
+    drawAnimation(animationType) {
+        
+        this.currentAnimation.frameDelay = 5;
         this.currentAnimation.scale = .5;
         this.currentAnimation.changeAnimation(animationType);
-        if (animationType == 'Run  Animation' && this.direction == 'forward')
-        {
+        if (animationType == 'walk' && this.direction == 'forward') {
             this.currentAnimation.direction = 0;
             this.currentAnimation.mirror.x = false;
             this.currentAnimation.speed = 1;
+
         }
-        else if (animationType == 'Run Animation' && this.direction == 'reverse') {
+        else if (animationType == 'walk' && this.direction == 'reverse') {
 
             this.currentAnimation.mirror.x = true;
             this.currentAnimation.direction = 180;
@@ -64,6 +59,8 @@ loadAnimation(animationType, path)
         else {
             this.currentAnimation.velocity.x = 0;
         }
+
+
     }
 
     incrementIndex() {
@@ -77,13 +74,13 @@ loadAnimation(animationType, path)
         }
     }
 
-    updatePosition(direction)
-    {
+    updatePosition(direction) {
         this.direction = direction;
+       
     }
 
     isColliding(myImage) {
         return this.currentAnimation.collide(myImage);
     }
-   
+
 }
