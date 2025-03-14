@@ -1,10 +1,10 @@
-Assets/Images/Idle Animation/Idle (0).png
-Assets/Images/Idle Animation/Idle (1).png
-Assets/Images/Idle Animation/Idle (2).png
-Assets/Images/Idle Animation/Idle (3).png
-Assets/Images/Idle Animation/Idle (4).png
-Assets/Images/Idle Animation/Idle (5).png
-Assets/Images/Idle Animation/Idle (6).png
-Assets/Images/Idle Animation/Idle (7).png
-Assets/Images/Idle Animation/Idle (8).png
-Assets/Images/Idle Animation/Idle (9).png
+images/idle/idle (0).png
+images/idle/idle (1).png
+images/idle/idle (2).png
+images/idle/idle (3).png
+images/idle/idle (4).png
+images/idle/idle (5).png
+images/idle/idle (6).png
+images/idle/idle (7).png
+images/idle/idle (8).png
+images/idle/idle (9).png

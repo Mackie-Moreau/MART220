@@ -3,25 +3,29 @@ var idlePaths = [];
 var myAnimation;
 var myWalkAnimation;
 var walkPaths = [];
-var catImage;
+
+//Obstacles
+var myWalls;
+var wallArray;
 
 function preload() {
-   idlePaths = loadStrings("./images/idle/idle.txt");
-   walkPaths = loadStrings("./images/walk/walk.txt");
+   idlePaths = loadStrings("images/idle/idle.txt");
+   walkPaths = loadStrings("images/run/run.txt");
    
 }
 
 function setup() {
-  createCanvas(800,600);
+  createCanvas(700, 700);
   myAnimation = new animationImage( 200, 200, 150, 150);
   myAnimation.loadAnimation('idle', idlePaths);
-  myAnimation.loadAnimation('walk', walkPaths);
+  myAnimation.loadAnimation('run', walkPaths);
 
-  //compact way to add an image
-  catImage = createSprite(450, 200,100,100, 'static');
-  catImage.img = "./images/cat.jpg";
-  catImage.scale = 0.05;
-  catImage.diameter = 150;
+  //obstacles
+  for (let i = 0; i < 3; i++) 
+    {
+        myWalls = new walls(this.x = floor(random() * width) + 1, this.y = floor(random() * 475) + 1);
+        wallArray.push(myWalls);
+    }
 
 }
 
@@ -29,30 +33,46 @@ function setup() {
 function draw() 
 {
 
-    background(120);
-    
+    background(141, 152, 167);
+
+    evilCube = square(200, 200, 50);
+
+    movementAnimation();
+
+    wallDisplay();
+}
+
+//Character
+function movementAnimation()
+{
     if(kb.pressing('d'))
-    {
-        myAnimation.updatePosition('forward');
-        myAnimation.drawAnimation('walk');    
-        if(myAnimation.isColliding(catImage))
+        {
+            myAnimation.updatePosition('forward');
+            myAnimation.drawAnimation('run');    
+            if(myAnimation.isColliding(wallArray))
+            {
+                myAnimation.drawAnimation('idle');
+                myAnimation.updatePosition('idle');
+                
+            }     
+        }
+        else if(kb.pressing('a'))
+        {
+            myAnimation.updatePosition('reverse');
+            myAnimation.drawAnimation('run');        
+        }
+        else
         {
             myAnimation.drawAnimation('idle');
-            myAnimation.updatePosition('idle');
-            
-        }     
-    }
-    else if(kb.pressing('a'))
-    {
-        myAnimation.updatePosition('reverse');
-        myAnimation.drawAnimation('walk');        
-    }
-    else
-    {
-        myAnimation.drawAnimation('idle');
-    } 
+        } 
+}
 
-    catImage.debug = mouseIsPressed;
-
+//Obstacles
+function wallDisplay()
+{
+    for (let i = 0; i < wallArray.length; i++) 
+        {
+             wallArray [i].draw();
+        }
 }
 

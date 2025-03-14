@@ -41,19 +41,19 @@ class animationImage {
     drawAnimation(animationType) {
         
         this.currentAnimation.frameDelay = 5;
-        this.currentAnimation.scale = .5;
+        this.currentAnimation.scale = .25;
         this.currentAnimation.changeAnimation(animationType);
-        if (animationType == 'walk' && this.direction == 'forward') {
+        if (animationType == 'run' && this.direction == 'forward') {
             this.currentAnimation.direction = 0;
             this.currentAnimation.mirror.x = false;
-            this.currentAnimation.speed = 1;
+            this.currentAnimation.speed = 2;
 
         }
-        else if (animationType == 'walk' && this.direction == 'reverse') {
+        else if (animationType == 'run' && this.direction == 'reverse') {
 
             this.currentAnimation.mirror.x = true;
             this.currentAnimation.direction = 180;
-            this.currentAnimation.speed = 1;
+            this.currentAnimation.speed = 2;
 
         }
         else {
