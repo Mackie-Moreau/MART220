@@ -3,6 +3,7 @@ var idlePaths = [];
 var myAnimation;
 var myWalkAnimation;
 var walkPaths = [];
+var catImage;
 
 //Obstacles
 var myWalls;
@@ -21,12 +22,12 @@ function setup() {
   myAnimation.loadAnimation('run', walkPaths);
 
   //obstacles
-  for (let i = 0; i < 3; i++) 
+ /* for (let i = 0; i < 3; i++) 
     {
         myWalls = new walls(this.x = floor(random() * width) + 1, this.y = floor(random() * 475) + 1);
         wallArray.push(myWalls);
     }
-
+*/
 }
 
 // display all the frames using the draw function as a loop
@@ -35,11 +36,15 @@ function draw()
 
     background(141, 152, 167);
 
-    evilCube = square(200, 200, 50);
+    catImage = createSprite(450, 200,100,100, 'static');
+    catImage.img = "./images/cat.jpg";
+    catImage.scale = 0.05;
+    catImage.diameter = 150;
+  
 
     movementAnimation();
 
-    wallDisplay();
+   // wallDisplay();
 }
 
 //Character
@@ -49,7 +54,7 @@ function movementAnimation()
         {
             myAnimation.updatePosition('forward');
             myAnimation.drawAnimation('run');    
-            if(myAnimation.isColliding(wallArray))
+            if(myAnimation.isColliding(catImage))
             {
                 myAnimation.drawAnimation('idle');
                 myAnimation.updatePosition('idle');
@@ -68,11 +73,11 @@ function movementAnimation()
 }
 
 //Obstacles
-function wallDisplay()
+/*function wallDisplay()
 {
     for (let i = 0; i < wallArray.length; i++) 
         {
              wallArray [i].draw();
         }
-}
+}*/
 
