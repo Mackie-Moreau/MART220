@@ -61,6 +61,24 @@ class animationImage {
         }
 
 
+        if (animationType == 'run' && this.direction == 'up') {
+            this.currentAnimation.direction = 270;
+            this.currentAnimation.mirror.x = false;
+            this.currentAnimation.speed = 2;
+
+        }
+        else if (animationType == 'run' && this.direction == 'down') {
+
+            this.currentAnimation.mirror.x = false;
+            this.currentAnimation.direction = 90;
+            this.currentAnimation.speed = 2;
+
+        }
+        else {
+            this.currentAnimation.velocity.y = 0;
+        }
+
+
     }
 
     incrementIndex() {

@@ -18,7 +18,7 @@ class Food
     draw()
     {
         fill(this.r, this.g, this.b);
-        circle(this.x2, this.y2, 50);
+        circle(this.x2, this.y2, 20);
     }
 
    /* normalPeppers()

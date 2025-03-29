@@ -1,4 +1,4 @@
-class walls
+class Walls
 {
     constructor(x, y)
     {
@@ -9,8 +9,6 @@ class walls
     draw()
     {
         fill(65, 71, 78);
-        rect(this.x, this.y, 25, 75);
+        rect(this.x, this.y, 20, 175);
     }
-	//wall.collider = 'static';
-
 }
