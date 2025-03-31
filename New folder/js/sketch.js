@@ -69,35 +69,38 @@ function movementAnimation()
     if(kb.pressing('d'))
         {
             myAnimation.updatePosition('forward');
-            myAnimation.drawAnimation('run');    
-            if(myAnimation.isColliding(barbedWire))
-            {
-                myAnimation.drawAnimation('idle');
-                myAnimation.updatePosition('idle');
-            }   
+            myAnimation.drawAnimation('run');     
+
+            collisionDetect();
              
         }
         else if(kb.pressing('a'))
         {
             myAnimation.updatePosition('reverse');
-            myAnimation.drawAnimation('run');        
+            myAnimation.drawAnimation('run');   
+            
+            collisionDetect();
         }
         else if (kb.pressing('w'))
         {
             myAnimation.updatePosition('up');
             myAnimation.drawAnimation('run'); 
+
+            collisionDetect();
         }
         else if (kb.pressing('s'))
         {
             myAnimation.updatePosition('down');
-            myAnimation.drawAnimation('run');    
+            myAnimation.drawAnimation('run'); 
+            
+            collisionDetect();
         }
         else
         {
             myAnimation.drawAnimation('idle');
         }  
 
-
+/*
         for (let k = 0; k < pepperArray.length; k++) 
             {
                 //if (runAnimation[i].hasCollided(pepperArray[k].x2, pepperArray[k].y2, 50, 50)) 
@@ -113,7 +116,7 @@ function movementAnimation()
                         }
                     pepperArray.splice(k, 1);
                 }   
-            }
+            }*/
 
 
 }
@@ -156,6 +159,24 @@ function winLose()
            fill(255, 110, 110);
            text("You Lose!", 250, 350);
        }
+
+}
+
+function collisionDetect()
+{
+    for (let k = 0; k < pepperArray.length; k++) 
+    {
+        if(myAnimation.isColliding(pepperArray[k].r ==255))
+            {
+                score++;
+            }
+    }
+
+    if(myAnimation.isColliding(barbedWire))
+        {
+            myAnimation.drawAnimation('idle');
+            myAnimation.updatePosition('idle');
+        }  
 
 }
 
