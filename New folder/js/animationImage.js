@@ -97,8 +97,8 @@ class animationImage {
        
     }
 
-    isColliding(myImage) {
-        return this.currentAnimation.collide(myImage);
+    isColliding(myWalls) {
+        return this.currentAnimation.collide(myWalls);
     }
 
 }

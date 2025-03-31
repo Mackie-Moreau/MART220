@@ -3,11 +3,12 @@ var idlePaths = [];
 var myAnimation;
 var myWalkAnimation;
 var walkPaths = [];
-var catImage;
 
 //Obstacles
-var myWalls;
-var wallArray = [];
+var barbedWire;
+var x;
+var y;
+
 
 //collectables
 var myPeppers;
@@ -30,11 +31,10 @@ function setup() {
   myAnimation.loadAnimation('run', walkPaths);
 
   //obstacles
-  for (let i = 0; i < 4; i++)
-  {
-    myWalls = new Walls(this.x2 = floor(random() * width) + 1, this.y2 = floor(random() * 475) + 1);
-    wallArray.push(myWalls);
-  }
+  barbedWire = createSprite(x = floor(random() * width) + 1, y = floor(random() * width) + 1, 20, 175, 'static');
+  barbedWire.img = "images/barbed wire.png";
+  barbedWire.scale = 0.05;
+  barbedWire.diameter = 150;
 
   //collectables
   for (let i = 0; i < 15; i++) 
@@ -53,9 +53,6 @@ function draw()
     background(141, 152, 167);
 
     movementAnimation();
-
-    //obstacles
-    wallDisplay();
     
     //collectables
     pepperDisplay();
@@ -73,12 +70,12 @@ function movementAnimation()
         {
             myAnimation.updatePosition('forward');
             myAnimation.drawAnimation('run');    
-            if(myAnimation.isColliding(myWalls))
+            if(myAnimation.isColliding(barbedWire))
             {
                 myAnimation.drawAnimation('idle');
                 myAnimation.updatePosition('idle');
-                
-            }     
+            }   
+             
         }
         else if(kb.pressing('a'))
         {
@@ -100,15 +97,25 @@ function movementAnimation()
             myAnimation.drawAnimation('idle');
         }  
 
-}
 
-//Obstacles
-function wallDisplay()
-{
-    for (let i = 0; i < wallArray.length; i++) 
-        {
-             wallArray [i].draw();
-        }
+        for (let k = 0; k < pepperArray.length; k++) 
+            {
+                //if (runAnimation[i].hasCollided(pepperArray[k].x2, pepperArray[k].y2, 50, 50)) 
+                if(collideRectRect(myAnimation.x, myAnimation.y, myAnimation.imageWidth, myAnimation.imageHeight, pepperArray[k].x2, pepperArray[k].y2, 50, 50))
+                {
+                    if(pepperArray[k].r ==255)
+                        {
+                            score++;
+                        }
+                        else
+                        {
+                            health--;
+                        }
+                    pepperArray.splice(k, 1);
+                }   
+            }
+
+
 }
 
 
