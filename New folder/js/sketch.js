@@ -100,23 +100,6 @@ function movementAnimation()
             myAnimation.drawAnimation('idle');
         }  
 
-/*
-        for (let k = 0; k < pepperArray.length; k++) 
-            {
-                //if (runAnimation[i].hasCollided(pepperArray[k].x2, pepperArray[k].y2, 50, 50)) 
-                if(collideRectRect(myAnimation.x, myAnimation.y, myAnimation.imageWidth, myAnimation.imageHeight, pepperArray[k].x2, pepperArray[k].y2, 50, 50))
-                {
-                    if(pepperArray[k].r ==255)
-                        {
-                            score++;
-                        }
-                        else
-                        {
-                            health--;
-                        }
-                    pepperArray.splice(k, 1);
-                }   
-            }*/
 
 
 }
@@ -164,19 +147,27 @@ function winLose()
 
 function collisionDetect()
 {
-    for (let k = 0; k < pepperArray.length; k++) 
-    {
-        if(myAnimation.isColliding(pepperArray[k].r ==255))
-            {
-                score++;
-            }
-    }
-
     if(myAnimation.isColliding(barbedWire))
         {
             myAnimation.drawAnimation('idle');
             myAnimation.updatePosition('idle');
         }  
+
+        for (let k = 0; k < pepperArray.length; k++) 
+            {
+                if(collideRectRect(myAnimation.currentAnimation.x, myAnimation.currentAnimation.y, myAnimation.currentAnimation.w, myAnimation.currentAnimation.h, pepperArray[k].x2, pepperArray[k].y2, 50, 50))
+                {
+                    if(pepperArray[k].r ==255)
+                        {
+                            score++;
+                        }
+                        else
+                        {
+                            health--;
+                        }
+                    pepperArray.splice(k, 1);
+                }   
+            }
 
 }
 
